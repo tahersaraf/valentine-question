@@ -1,21 +1,10 @@
-function answerYes() {
+yesButton.onclick = function answerYes() {
   // Redirect to the new page when "Yes" button is clicked
   window.location.href = "gif-page.html";
-}
+};
 
-function answerNo() {
+noButton.onclick = function answerNo() {
   const noButton = document.getElementById("noButton");
-
-  const maxX = window.innerWidth - noButton.clientWidth;
-  const maxY = window.innerHeight - noButton.clientHeight;
-
-  const randomX = Math.floor(Math.random() * maxX);
-  const randomY = Math.floor(Math.random() * maxY);
-
-  // Set new position
-  noButton.style.position = "absolute";
-  noButton.style.left = randomX + "px";
-  noButton.style.top = randomY + "px";
 
   // Define an array of different phrases
   const phrases = [
@@ -33,11 +22,25 @@ function answerNo() {
 
   // Set new text
   noButton.textContent = newText;
+};
 
-  // // Set a timeout to revert the button to its original position after 10 seconds (adjust as needed)
-  // setTimeout(() => {
-  //   noButton.style.left = "";
-  //   noButton.style.top = "";
-  //   noButton.style.position = "";
-  // }, 5000);
-}
+noButton.onmouseover = function answerNo() {
+  const noButton = document.getElementById("noButton");
+
+  const maxX = window.innerWidth - noButton.clientWidth;
+  const maxY = window.innerHeight - noButton.clientHeight;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  // Set new position
+  noButton.style.position = "absolute";
+  noButton.style.left = randomX + "px";
+  noButton.style.top = randomY + "px";
+
+  setTimeout(() => {
+    noButton.style.left = "";
+    noButton.style.top = "";
+    noButton.style.position = "";
+  }, 5000);
+};
