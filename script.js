@@ -2,7 +2,7 @@ yesButton.onclick = function answerYes() {
   // Redirect to the new page when "Yes" button is clicked
   window.location.href = "gif-page.html";
 };
-
+let activityTimer; 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 if (isMobile) {
   noButton.onclick = function answerNo() {
@@ -35,15 +35,36 @@ if (isMobile) {
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
-    // Set new position
-    noButton.style.position = "absolute";
+    noButton.style.transition = 'left 0.5s ease-out, top 0.5s ease-out';
+    noButton.style.position = "fixed";
     noButton.style.left = randomX + "px";
     noButton.style.top = randomY + "px";
-
-    setTimeout(() => {
-      noButton.style.left = "";
-      noButton.style.top = "";
-      noButton.style.position = "";
-    }, 5000);
   };
+
+  clearTimeout(activityTimer);
+  activityTimer = setTimeout(resetButtonPosition, 5000);
+
 }
+
+
+function resetButtonPosition() {
+  const noButton = document.getElementById('noButton');
+  noButton.style.transition = ''; 
+  noButton.style.position = '';
+  noButton.style.left = '';
+  noButton.style.top = '';
+}
+
+function handleUserActivity() {
+  // Reset the activity timer whenever there's user activity
+  clearTimeout(activityTimer);
+  activityTimer = setTimeout(resetButtonPosition, 5000);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  resetButtonPosition();
+
+  document.addEventListener('mousemove', handleUserActivity);
+  document.addEventListener('keydown', handleUserActivity);
+});
